@@ -1,0 +1,14 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'com.modsocial.app'
+    compileSdk 36
+    buildFeatures { buildConfig true }
+    // Production default. A staging endpoint can still be supplied with -PMOD_API_URL.
+    def apiBase = providers.gradleProperty('MOD_API_URL').getOrElse('https://mod-api-production.up.railway.app')
+    if (apiBase && !(apiBase ==~ /https:\/\/[A-Za-z0-9.-]+(:[0-9]+)?/)) {
+        throw new GradleException('MOD_API_URL must be an HTTPS origin without path')
+    }
+    defaultConfig { applicationId 'com.modsocial.app'; minSdk 26; targetSdk 36; versionCode 3; versionName '0.2.0'; buildConfigField 'String', 'API_BASE_URL', '"' + apiBase + '"' }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    buildTypes { release { minifyEnabled false } }
+}
