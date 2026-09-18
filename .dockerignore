@@ -1,0 +1,10 @@
+**/.gradle
+**/build
+**/__pycache__
+**/*.sqlite*
+**/*.keystore
+**/*.jks
+local.properties
+.git
+app
+android-build
